@@ -1,6 +1,7 @@
-import prismaClient from "../prisma"
+import prismaClient from '../../prisma'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { AuthUtils } from '../../utils/AuthUtils'
 
 interface UserProps {
   email: string
@@ -17,23 +18,19 @@ class LoginUserService {
     })
 
     if(!user) {
-      throw new Error ("Usuário não encontrado")
+      throw new Error ("User not found")
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
     if(!isPasswordValid) {
-      throw new Error ("Credenciais invalidas")
+      throw new Error ("Invalid credentials")
     }
 
-    const accessToken = jwt.sign(
-      { userId: user.id },
-      process.env.ACCESS_TOKEN_SECRET!,
-      { expiresIn: "72h" }
-    )
+    const accessToken = AuthUtils.generateAccessToken(user.id)
 
     return {
       erro: false,
-      message: "Login bem sucedido!",
+      message: "Successful login!",
       user: { fullName: user.fullName, email: user.email},
       accessToken
     }

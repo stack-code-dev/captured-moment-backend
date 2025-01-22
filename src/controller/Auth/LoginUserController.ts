@@ -1,12 +1,12 @@
 import { FastifyReply, FastifyRequest } from "fastify"
-import { LoginUserService } from "../service/LoginUserService"
+import { LoginUserService } from "../../service/Auth/LoginUserService"
 
 class LoginUserController {
   async handle(request: FastifyRequest, reply: FastifyReply){
     const { email, password } = request.body as {email: string, password: string}
 
     if(!email || !password) {
-      reply.status(400).send({ message: "Todos os campos são requiridos"})
+      reply.status(400).send({ message: "All fields are required"})
     }
    
     try {
