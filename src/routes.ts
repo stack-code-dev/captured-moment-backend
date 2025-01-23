@@ -8,6 +8,12 @@ import { GetAllMomentsController } from "./controller/Moments/GetAllMomentsContr
 import { SearchMomentsController } from "./controller/Moments/SearchMomentsController";
 import { UpdateMomentsController } from "./controller/Moments/UpdateMomentsController";
 import { GenerateIAController } from "./controller/IA/GenerateIAController";
+import { upload } from "./config/multer";
+import { UploadFileController } from "./controller/Upload/UploadFileController";
+import { DeleteFileController } from "./controller/Upload/DeleteFileController";
+import { DeleteMomentsController } from "./controller/Moments/DeleteMomentsController";
+import { UpdateIsFavoriteMomentsController } from "./controller/Moments/UpdateisFavoriteMomentsController";
+import { DateFilterMomentsController } from "./controller/Moments/DateFilterMomentsController";
 
 export function routes(fastify: FastifyInstance) {
   // AUTH: CRIAÇÃO DE USUÁRIO
@@ -47,13 +53,39 @@ export function routes(fastify: FastifyInstance) {
     return new UpdateMomentsController().handle(request, reply)
   })
 
+  // MOMENT: DELETAR MOMENTO
+  fastify.delete('/delete-moment/:id', { preHandler: authenticateToken}, async (request: FastifyRequest, reply: FastifyReply) => {
+    return new DeleteMomentsController().handle(request, reply)
+  })
 
-  // MOMENT: BUSCAR POR TERMOS
+  // MOMENT: ATUALIZAR OS FAVORITOS DO MOMENTO
+  fastify.put('/update-is-favorite/:id', { preHandler: authenticateToken}, async (request: FastifyRequest, reply: FastifyReply) => {
+    return new  UpdateIsFavoriteMomentsController().handle(request, reply)
+  })
+
+  // MOMENT: FILTRO DE MOMENTOS
+  fastify.get('/registered-moment/filter', { preHandler: authenticateToken}, async (request: FastifyRequest, reply: FastifyReply) => {
+    return new  DateFilterMomentsController().handle(request, reply)
+  })
+
+
+
+  // IA: INTEGRAÇÃO COM IA
   fastify.post('/ia', async (request: FastifyRequest, reply: FastifyReply) => {
     return new GenerateIAController().handle(request, reply)
   })
 
 
+
+  // UPLOAD: ADICIONAR IMAGEM
+  fastify.post('/image-upload', {preHandler: upload.single("image")}, async (request: FastifyRequest, reply: FastifyReply) => {
+    return new UploadFileController().handle(request, reply)
+  })
+
+  // UPLOAD: DELETAR IMAGEM
+  fastify.delete('/delete-upload', {preHandler: upload.single("image")}, async (request: FastifyRequest, reply: FastifyReply) => {
+    return new DeleteFileController().handle(request, reply)
+  })
 }
 
 // ROTA -> CONTROLLER -> SERVICE -> DB
