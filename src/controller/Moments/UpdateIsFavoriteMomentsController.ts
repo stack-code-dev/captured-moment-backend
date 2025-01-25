@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify"
-import { UpdateIsFavoriteMomentsService } from "../../service/Moments/UpdateisFavoriteMomentsService"
+import { UpdateIsFavoriteMomentsService } from "../../service/Moments/UpdateIsFavoriteMomentsService"
 
 class UpdateIsFavoriteMomentsController {
   async handle(request: FastifyRequest, reply: FastifyReply){

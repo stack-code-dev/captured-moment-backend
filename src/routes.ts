@@ -12,7 +12,7 @@ import { upload } from "./config/multer";
 import { UploadFileController } from "./controller/Upload/UploadFileController";
 import { DeleteFileController } from "./controller/Upload/DeleteFileController";
 import { DeleteMomentsController } from "./controller/Moments/DeleteMomentsController";
-import { UpdateIsFavoriteMomentsController } from "./controller/Moments/UpdateisFavoriteMomentsController";
+import { UpdateIsFavoriteMomentsController } from "./controller/Moments/UpdateIsFavoriteMomentsController";
 import { DateFilterMomentsController } from "./controller/Moments/DateFilterMomentsController";
 
 export function routes(fastify: FastifyInstance) {

@@ -24,6 +24,7 @@
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "fastify": "^5.2.1",
+    "fastify-cors": "^6.0.3",
     "fastify-multer": "^2.0.3",
     "jsonwebtoken": "^9.0.2",
     "tsx": "^4.19.2"
