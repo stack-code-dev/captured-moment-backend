@@ -32,6 +32,11 @@ class DeleteMomentsService {
   
     const imageUrl = registerMoment.imageUrl
     const fileName = path.basename(imageUrl)
+
+    // Não deleta a imagem default
+    if (fileName === 'image-default.png') {
+      return { message: 'Image default has been preserved' }
+    }
   
     const filePath = path.join(__dirname, '..', '..', '..', 'uploads', fileName)
   

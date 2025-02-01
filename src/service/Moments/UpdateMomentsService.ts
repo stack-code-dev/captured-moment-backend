@@ -21,7 +21,7 @@ class UpdateMomentsService {
     imageUrl,
     visitedDate }: UpdateMomentProps) {
     
-      const parsedVisitedDate = new Date(parseInt(visitedDate))
+      const parsedVisitedDate = new Date(visitedDate)
   
       const registeredMoment = await prismaClient.registeredMoment.findFirst({
         where: {
@@ -34,7 +34,7 @@ class UpdateMomentsService {
         throw new Error("Register moment not found!" )
       }
     
-      const placeholderImageUrl = `http://localhost:8000/uploads/paisagem-ai.jpeg`
+      const placeholderImageUrl = `http://localhost:8000/uploads/image-default.png`
     
       const updatedRegisteredMoment = await prismaClient.registeredMoment.update({
         where: {

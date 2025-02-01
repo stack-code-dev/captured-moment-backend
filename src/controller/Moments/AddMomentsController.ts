@@ -14,7 +14,7 @@ class AddMomentsController {
     const { title, story, visitedLocation, imageUrl, visitedDate } = request.body as RegisteredMoment
     const { user } = request
   
-    if(!title || !story || !visitedLocation || !imageUrl || !visitedDate) {
+    if(!title || !story || !visitedLocation || !visitedDate) {
       return reply.status(400).send({ error: true, message: "All fields are required!" })
     }
   

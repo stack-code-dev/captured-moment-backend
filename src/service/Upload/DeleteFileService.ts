@@ -5,6 +5,11 @@ class DeleteFileService {
   async execute({ imageUrl }: {imageUrl: string}) {
     const fileName = path.basename(imageUrl)
   
+    // Não deleta a imagem default
+    if (fileName === 'image-default.png') {
+      return { message: 'Image default has been preserved' }
+    }
+
     const filePath = path.join(__dirname, '..', '..', '..', 'uploads', fileName)
   
     if(fs.existsSync(filePath)) {
